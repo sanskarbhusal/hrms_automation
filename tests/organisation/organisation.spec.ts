@@ -22,12 +22,13 @@ await page.getByRole('textbox', { name: 'Address' }).fill('Raatopool paari');
 await page.getByRole('textbox', { name: 'Phone' }).click();
 await page.getByRole('textbox', { name: 'Phone' }).fill('9888888888');
 await page.getByRole('button', { name: 'Create branch' }).click();
-await expect(page.getByRole('cell', { name: 'Gyaneshwor Branch' })).toBeVisible();
+await expect(page.getByRole('cell', { name: 'Gyaneshwor Branch' })).toBeVisible({timeout:5000});
 await expect(page.getByRole('cell', { name: 'GYAN', exact: true })).toBeVisible();
 await expect(page.getByRole('cell', { name: 'Kathmandu' })).toBeVisible();
 await expect(page.getByRole('cell', { name: 'Nepal' })).toBeVisible();
 await page.getByRole('button', { name: 'Move to trash' }).first().click();
 await page.getByRole('button', { name: 'Move to trash' }).click();
+await page.waitForTimeout(1000);
 });
 
 test('[ORG_02] Verify that user can edit branch details.',async({page})=>{
@@ -49,8 +50,7 @@ await page.getByRole('textbox', { name: 'Phone' }).click();
 await page.getByRole('textbox', { name: 'Phone' }).fill('9888888888888');
 await page.getByRole('button', { name: 'Create branch' }).click();
 
-await expect(page.getByRole('cell', { name: 'test' }).first()).toBeVisible();
-
+await expect(page.getByRole('cell', { name: 'test' }).first()).toBeVisible({timeout:5000});
 await expect(page.getByRole('cell', { name: 'test' }).nth(1)).toBeVisible()
 await expect(page.getByRole('cell', { name: 'test' }).nth(2)).toBeVisible();
 await expect(page.getByRole('cell', { name: 'test' }).nth(3)).toBeVisible();
@@ -72,7 +72,7 @@ await page.getByRole('textbox', { name: 'Phone' }).fill('977777777');
 await page.getByRole('button', { name: 'Save changes' }).click();
 
 
-await expect(page.getByRole('cell', { name: 'updated_name' })).toBeVisible()
+await expect(page.getByRole('cell', { name: 'updated_name' })).toBeVisible({timeout:5000})
 await expect(page.getByRole('cell', { name: 'updated_code' })).toBeVisible();
 await expect(page.getByRole('cell', { name: 'updated_city' })).toBeVisible();
 await expect(page.getByRole('cell', { name: 'updated_country' })).toBeVisible();;
@@ -83,9 +83,40 @@ await page.getByRole('button', { name: 'Move to trash' }).click()
 await page.getByRole('button', { name: 'Move to trash' }).click();
 })
 
-// test('[ORG_03] Verify that user can delete branch.',async({page})=>{
+test.only('[ORG_03] Verify that user can delete branch.',async({page})=>{
+await page.getByRole('button', { name: 'Organisation' }).click();
+await page.getByRole('link', { name: 'Branches' }).click();
+await page.getByRole('button', { name: 'New branch' }).click();
 
-// });
+await page.getByRole('textbox', { name: 'Name *' }).click();
+await page.getByRole('textbox', { name: 'Name *' }).fill('deleting_branch');
+await page.getByRole('textbox', { name: 'Code *' }).click()
+await page.getByRole('textbox', { name: 'Code *' }).fill('deleting_code');
+await page.getByRole('textbox', { name: 'City' }).click();
+await page.getByRole('textbox', { name: 'City' }).fill('d');
+await page.getByRole('textbox', { name: 'City' }).fill('deleting_city');
+await page.getByRole('textbox', { name: 'Country' }).click();
+await page.getByRole('textbox', { name: 'Country' }).fill('d');
+await page.getByRole('textbox', { name: 'Country' }).fill('deleting_country');
+await page.getByRole('textbox', { name: 'Address' }).click();
+await page.getByRole('textbox', { name: 'Address' }).fill('deleting_address');
+await page.getByRole('textbox', { name: 'Phone' }).click();
+await page.getByRole('textbox', { name: 'Phone' }).fill('988888888888');
+await page.getByRole('button', { name: 'Create branch' }).click();;
+
+
+await expect(page.getByRole('cell', { name: 'deleting_branch' })).toBeVisible()
+await expect(page.getByRole('cell', { name: 'deleting_code' })).toBeVisible();
+await expect(page.getByRole('cell', { name: 'deleting_city' })).toBeVisible();
+await expect(page.getByRole('cell', { name: 'deleting_country' })).toBeVisible();
+
+
+await page.getByRole('button', { name: 'Move to trash' }).first().click();
+await page.getByRole('button', { name: 'Move to trash' }).click();
+
+await page.pause()
+
+});
 
 // test('[ORG_04] Verify that user can search branches by name, code or city.',async({page})=>{
 
