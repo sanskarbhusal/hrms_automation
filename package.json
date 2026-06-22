@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test":"playwright test --headed",
     "db:reset": "bash scripts/reset-db.sh",
     "db:seed": "sequelize-cli db:seed:all",
     "db:migrate": "sequelize-cli db:migrate"
