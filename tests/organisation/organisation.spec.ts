@@ -524,7 +524,6 @@ test.describe.serial("Organization module", async () => {
     await page.getByRole("textbox", { name: "Name *" }).click();
     await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
 
-    // here
     await page.getByRole("combobox").selectOption({ label: "test_branch" });
 
     await page.getByRole("button", { name: "Create department" }).click();
@@ -717,7 +716,7 @@ test.describe.serial("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  test.only("[ORG_13] Verify that the user can [search] designation.", async ({
+  test("[ORG_13] Verify that the user can [search] designation.", async ({
     page,
   }) => {
     await page.goto("/dashboard/branches");
@@ -784,7 +783,99 @@ test.describe.serial("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  // test('[ORG_14] Verify that the filter on the right side of [search] bar works.',async({page})=>{
+  test("[ORG_14] Verify that the filter on the right side of [search] bar works.", async ({
+    page,
+  }) => {
+    await page.goto("/dashboard/branches");
 
-  // });
+    await page.getByRole("button", { name: "New branch" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page.getByRole("textbox", { name: "Code *" }).click();
+    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page
+      .locator("div")
+      .filter({ hasText: /^New branch$/ })
+      .nth(1)
+      .click();
+    await page.getByRole("textbox", { name: "City" }).click();
+    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "Country" }).click();
+    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page.getByRole("textbox", { name: "Address" }).click();
+    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page.getByRole("textbox", { name: "Phone" }).click();
+    await page.getByRole("textbox", { name: "Phone" }).fill("98888888888");
+    await page.getByRole("button", { name: "Create branch" }).click();
+
+    await page.goto("/dashboard/departments");
+
+    await page.getByRole("button", { name: "New department" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_department1");
+    await page.getByRole("combobox").selectOption({ label: "test_branch" });
+    await page.getByRole("button", { name: "Create department" }).click();
+    await page.getByRole("button", { name: "New department" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_department2");
+    await page.getByRole("combobox").selectOption({ label: "test_branch" });
+    await page.getByRole("button", { name: "Create department" }).click();
+
+    await page.goto("/dashboard/designations");
+
+    await page.getByRole("button", { name: "New designation" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_designation1");
+    await page
+      .getByRole("combobox")
+      .selectOption({ label: "test_department1 — test_branch" });
+    await page.getByRole("button", { name: "Create designation" }).click();
+
+    await page.getByRole("button", { name: "New designation" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_designation2");
+    await page
+      .getByRole("combobox")
+      .selectOption({ label: "test_department2 — test_branch" });
+    await page.getByRole("button", { name: "Create designation" }).click();
+
+    await page
+      .getByRole("combobox")
+      .selectOption({ label: "test_department1" });
+    await expect(
+      page.getByRole("cell", { name: "test_designation1" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "test_department1" }),
+    ).toBeVisible();
+    await page
+      .getByRole("combobox")
+      .selectOption({ label: "test_department2" });
+    await expect(
+      page.getByRole("cell", { name: "test_designation2" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "test_department2" }),
+    ).toBeVisible();
+    await page.getByRole("combobox").selectOption("");
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+
+    await page.goto("/dashboard/departments");
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+
+    await page.goto("/dashboard/branches");
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+  });
 });
