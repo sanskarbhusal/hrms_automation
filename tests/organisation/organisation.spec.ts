@@ -425,9 +425,81 @@ test.describe.serial("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  // test('[ORG_09] Verify that the filter on the right side of [search] bar works.',async({page})=>{
+  test("[ORG_09] Verify that the filter on the right side of [search] bar works.", async ({
+    page,
+  }) => {
+    await page.goto("/dashboard/branches");
 
-  // });
+    // Create a test_branch1
+    await page.getByRole("button", { name: "New branch" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch1");
+    await page.getByRole("textbox", { name: "Code *" }).click();
+    await page.getByRole("textbox", { name: "Code *" }).fill("test_code1");
+    await page.getByRole("textbox", { name: "City" }).click();
+    await page.getByRole("textbox", { name: "City" }).fill("test_code2");
+    await page.getByRole("textbox", { name: "Country" }).click();
+    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page.getByRole("textbox", { name: "Address" }).click();
+    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page.getByRole("textbox", { name: "Phone" }).click();
+    await page.getByRole("button", { name: "Create branch" }).click();
+    // Create a test_branch1
+
+    await page.getByRole("button", { name: "New branch" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch2");
+    await page.getByRole("textbox", { name: "Code *" }).click();
+    await page.getByRole("textbox", { name: "Code *" }).fill("test_code2");
+    await page.getByRole("textbox", { name: "City" }).click();
+    await page.getByRole("textbox", { name: "City" }).fill("test_city2");
+    await page.getByRole("textbox", { name: "Country" }).click();
+    await page.getByRole("textbox", { name: "Country" }).fill("test_country2");
+    await page.getByRole("textbox", { name: "Address" }).click();
+    await page.getByRole("textbox", { name: "Address" }).fill("test_address2");
+    await page.getByRole("button", { name: "Create branch" }).click();
+
+    await page.goto("/dashboard/departments");
+
+    await page.getByRole("button", { name: "New department" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_department1");
+    await page.getByLabel("Branch").selectOption({ label: "test_branch1" });
+    await page.getByRole("button", { name: "Create department" }).click();
+    await page.getByRole("button", { name: "New department" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_department2");
+    await page.getByLabel("Branch").selectOption({ label: "test_branch2" });
+    await page.getByRole("button", { name: "Create department" }).click();
+
+    await page.getByRole("combobox").selectOption({ label: "test_branch1" });
+    await expect(
+      page.getByRole("cell", { name: "test_department1" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "test_branch1" }),
+    ).toBeVisible();
+    await page.getByRole("combobox").selectOption({ label: "test_branch2" });
+    await expect(
+      page.getByRole("cell", { name: "test_department2" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "test_branch2" }),
+    ).toBeVisible();
+
+    await page.getByRole("combobox").selectOption("");
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+
+    await page.goto("/dashboard/branches");
+
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+  });
 
   // test('[ORG_10] Verify that user can create new designation.',async({page})=>{
 
