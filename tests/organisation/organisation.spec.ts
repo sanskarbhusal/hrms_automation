@@ -717,9 +717,72 @@ test.describe.serial("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  // test('[ORG_13] Verify that the user can [search] designation.',async({page})=>{
+  test.only("[ORG_13] Verify that the user can [search] designation.", async ({
+    page,
+  }) => {
+    await page.goto("/dashboard/branches");
 
-  // });
+    await page.getByRole("button", { name: "New branch" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page.getByRole("textbox", { name: "Code *" }).click();
+    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page.getByRole("textbox", { name: "City" }).click();
+    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "Country" }).click();
+    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page.getByRole("textbox", { name: "Address" }).click();
+    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page.getByRole("button", { name: "Create branch" }).click();
+
+    await page.goto("/dashboard/departments");
+    await page.getByRole("button", { name: "New department" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
+
+    await page.getByRole("combobox").selectOption({ label: "test_branch" });
+
+    await page.getByRole("button", { name: "Create department" }).click();
+
+    await page.goto("/dashboard/designations");
+
+    await page.getByRole("button", { name: "New designation" }).click();
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill("test_designation");
+    await page.getByRole("textbox", { name: "Description" }).click();
+    await page
+      .getByRole("textbox", { name: "Description" })
+      .fill("test_description");
+    await page
+      .getByRole("combobox")
+      .selectOption({ label: "test_department — test_branch" });
+    await page.getByRole("button", { name: "Create designation" }).click();
+
+    await page.getByRole("textbox", { name: "Search by name..." }).click();
+    await page
+      .getByRole("textbox", { name: "Search by name..." })
+      .fill("test_designation");
+    await expect(
+      page.getByRole("cell", { name: "test_designation" }),
+    ).toBeVisible();
+
+    await page.getByRole("textbox", { name: "Search by name..." }).click();
+    await page.getByRole("textbox", { name: "Search by name..." }).fill("");
+
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+
+    await page.goto("/dashboard/departments");
+
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+
+    await page.goto("/dashboard/branches");
+
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+  });
 
   // test('[ORG_14] Verify that the filter on the right side of [search] bar works.',async({page})=>{
 

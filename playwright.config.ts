@@ -30,7 +30,7 @@ export default defineConfig({
     baseURL: "http://localhost:5173",
 
     // launchOptions: {
-    //   slowMo: 250, // Introduces a 1000ms (1 second) delay between actions
+    //   slowMo: 500, // Introduces a 1000ms (1 second) delay between actions
     // },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
