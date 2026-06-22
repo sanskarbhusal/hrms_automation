@@ -365,9 +365,65 @@ test.describe.serial("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  // test('[ORG_08] Verify that the user can [search] department.',async({page})=>{
+  test("[ORG_08] Verify that the user can [search] department.", async ({
+    page,
+  }) => {
+    await page.goto("/dashboard/branches");
 
-  // });
+    await page.getByRole("button", { name: "New branch" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page.getByRole("textbox", { name: "Code *" }).click();
+    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page.getByRole("textbox", { name: "City" }).click();
+    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "Country" }).click();
+    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page.getByRole("textbox", { name: "Address" }).click();
+    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page.getByRole("textbox", { name: "Phone" }).click();
+    await page.getByRole("textbox", { name: "Phone" }).fill("9888888888");
+    await page.getByRole("button", { name: "Create branch" }).click();
+
+    await page.goto("/dashboard/departments");
+
+    await page.getByRole("button", { name: "New department" }).click();
+    await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
+    await page.getByRole("textbox", { name: "Description" }).click();
+    await page
+      .getByRole("textbox", { name: "Description" })
+      .fill("test_description");
+    await page.getByLabel("Branch").selectOption({ label: "test_branch" });
+    await page.getByRole("button", { name: "Create department" }).click();
+    await expect(
+      page.getByRole("cell", { name: "test_department" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "test_description" }),
+    ).toBeVisible();
+    await expect(page.getByRole("cell", { name: "test_branch" })).toBeVisible();
+
+    await page.getByRole("textbox", { name: "Search by name..." }).click();
+    await page
+      .getByRole("textbox", { name: "Search by name..." })
+      .fill("test_department");
+    await expect(
+      page.getByRole("cell", { name: "test_department" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: "test_description" }),
+    ).toBeVisible();
+    await expect(page.getByRole("cell", { name: "test_branch" })).toBeVisible();
+
+    await page.getByRole("textbox", { name: "Search by name..." }).click();
+    await page.getByRole("textbox", { name: "Search by name..." }).fill("");
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+
+    await page.goto("/dashboard/branches");
+
+    await page.getByRole("button", { name: "Move to trash" }).first().click();
+    await page.getByRole("button", { name: "Move to trash" }).click();
+  });
 
   // test('[ORG_09] Verify that the filter on the right side of [search] bar works.',async({page})=>{
 
