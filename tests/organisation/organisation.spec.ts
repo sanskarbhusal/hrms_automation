@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { login } from "../../utils/login";
+import data from "../../fixture/data.json";
 
-test.describe.only("Organization module", async () => {
+test.describe("Organization module", async () => {
   test.describe.configure({ mode: "serial" });
 
   test.beforeEach("Login as admin", async ({ page }) => {
@@ -12,40 +13,58 @@ test.describe.only("Organization module", async () => {
     await page.waitForTimeout(500);
   });
 
-  test("[ORG_01] Verify that user can user can create new branch.", async ({
+  test.only("[ORG_01] Verify that user can user can create new branch.", async ({
     page,
   }) => {
+    // Create a branch
     await page.getByRole("button", { name: "Organisation" }).click();
     await page.getByRole("link", { name: "Branches" }).click();
     await page.getByRole("button", { name: "New branch" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("new_branch");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code *" }).click();
-    await page.getByRole("textbox", { name: "Code *" }).fill("new_code");
+    await page
+      .getByRole("textbox", { name: "Code *" })
+      .fill(data.branch_1.code);
     await page
       .locator("div")
       .filter({ hasText: /^New branch$/ })
       .nth(1)
       .click();
     await page.getByRole("textbox", { name: "City" }).click();
-    await page.getByRole("textbox", { name: "City" }).fill("new_city");
+    await page.getByRole("textbox", { name: "City" }).fill(data.branch_1.city);
     await page.getByRole("textbox", { name: "Country" }).click();
-    await page.getByRole("textbox", { name: "Country" }).fill("new_country");
+    await page
+      .getByRole("textbox", { name: "Country" })
+      .fill(data.branch_1.country);
     await page.getByRole("textbox", { name: "Address" }).click();
-    await page.getByRole("textbox", { name: "Address" }).fill("new_address");
+    await page
+      .getByRole("textbox", { name: "Address" })
+      .fill(data.branch_1.address);
     await page.getByRole("textbox", { name: "Phone" }).click();
-    await page.getByRole("textbox", { name: "Phone" }).fill("98888888888");
+    await page
+      .getByRole("textbox", { name: "Phone" })
+      .fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
 
+    // Assertion
     await expect(page.getByText("Branch created")).toBeVisible();
     await page.reload({ waitUntil: "load" });
-    await expect(page.getByRole("cell", { name: "new_branch" })).toBeVisible({
+    await expect(
+      page.getByRole("cell", { name: data.branch_1.name }),
+    ).toBeVisible({
       timeout: 5000,
     });
     await expect(
-      page.getByRole("cell", { name: "new_code", exact: true }),
+      page.getByRole("cell", { name: data.branch_1.code, exact: true }),
     ).toBeVisible();
-    await expect(page.getByRole("cell", { name: "new_city" })).toBeVisible();
-    await expect(page.getByRole("cell", { name: "new_country" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: data.branch_1.city }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: data.branch_1.country }),
+    ).toBeVisible();
 
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();

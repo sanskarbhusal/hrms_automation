@@ -1,4 +1,10 @@
 {
+  "role": {
+    "admin": {
+      "email": "admin@demo.test",
+      "password": "Admin@123"
+    }
+  },
   "branch_1": {
     "name": "test_branch_1",
     "code": "test_code_1",
