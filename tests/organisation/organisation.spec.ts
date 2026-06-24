@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { login } from "../../utils/login";
 
-test.describe.skip("Organization module", async () => {
+test.describe.only("Organization module", async () => {
   test.describe.configure({ mode: "serial" });
 
   test.beforeEach("Login as admin", async ({ page }) => {
@@ -44,8 +44,8 @@ test.describe.skip("Organization module", async () => {
     await expect(
       page.getByRole("cell", { name: "new_code", exact: true }),
     ).toBeVisible();
-    await expect(page.getByRole("cell", { name: "Kathmandu" })).toBeVisible();
-    await expect(page.getByRole("cell", { name: "Nepal" })).toBeVisible();
+    await expect(page.getByRole("cell", { name: "new_city" })).toBeVisible();
+    await expect(page.getByRole("cell", { name: "new_country" })).toBeVisible();
 
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();

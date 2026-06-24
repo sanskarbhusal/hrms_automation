@@ -27,7 +27,7 @@ export default defineConfig({
   timeout: 1000000000,
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: "http://localhost:5173",
+    baseURL: "http://192.168.1.75:5173",
 
     // launchOptions: {
     //   slowMo: 500, // Introduces a 1000ms (1 second) delay between actions
