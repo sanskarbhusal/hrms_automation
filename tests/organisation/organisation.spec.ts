@@ -271,36 +271,54 @@ test.describe("Organization module", async () => {
     await page.goto("/dashboard/branches");
 
     await page.getByRole("button", { name: "New branch" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code *" }).click();
-    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page
+      .getByRole("textbox", { name: "Code *" })
+      .fill(data.branch_1.code);
     await page.getByRole("textbox", { name: "City" }).click();
-    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "City" }).fill(data.branch_1.city);
     await page.getByRole("textbox", { name: "Country" }).click();
-    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page
+      .getByRole("textbox", { name: "Country" })
+      .fill(data.branch_1.country);
     await page.getByRole("textbox", { name: "Address" }).click();
-    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page
+      .getByRole("textbox", { name: "Address" })
+      .fill(data.branch_1.address);
     await page.getByRole("textbox", { name: "Phone" }).click();
-    await page.getByRole("textbox", { name: "Phone" }).fill("9888888888");
+    await page
+      .getByRole("textbox", { name: "Phone" })
+      .fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
 
     await page.goto("/dashboard/departments");
 
     await page.getByRole("button", { name: "New department" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.department_1.name);
     await page.getByRole("textbox", { name: "Description" }).click();
     await page
       .getByRole("textbox", { name: "Description" })
-      .fill("test_description");
-    await page.getByLabel("Branch").selectOption({ label: "test_branch" });
+      .fill(data.department_1.description);
+    await page
+      .getByLabel("Branch")
+      .selectOption({ label: data.department_1.branch });
     await page.getByRole("button", { name: "Create department" }).click();
+    // Assertion
     await expect(
-      page.getByRole("cell", { name: "test_department" }),
+      page.getByRole("cell", { name: data.department_1.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "test_description" }),
+      page.getByRole("cell", { name: data.department_1.description }),
     ).toBeVisible();
-    await expect(page.getByRole("cell", { name: "test_branch" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: data.department_1.branch }),
+    ).toBeVisible();
+    // Cleanup: Remove department
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
@@ -308,56 +326,75 @@ test.describe("Organization module", async () => {
   test("[ORG_06] Verify that the user can edit department details.", async ({
     page,
   }) => {
+    // Create a branch
     await page.goto("/dashboard/branches");
-
     await page.getByRole("button", { name: "New branch" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code *" }).click();
-    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page
+      .getByRole("textbox", { name: "Code *" })
+      .fill(data.branch_1.code);
     await page.getByRole("textbox", { name: "City" }).click();
-    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "City" }).fill(data.branch_1.city);
     await page.getByRole("textbox", { name: "Country" }).click();
-    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page
+      .getByRole("textbox", { name: "Country" })
+      .fill(data.branch_1.country);
     await page.getByRole("textbox", { name: "Address" }).click();
-    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page
+      .getByRole("textbox", { name: "Address" })
+      .fill(data.branch_1.address);
     await page.getByRole("textbox", { name: "Phone" }).click();
-    await page.getByRole("textbox", { name: "Phone" }).fill("9888888888");
+    await page
+      .getByRole("textbox", { name: "Phone" })
+      .fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
 
+    // Create department
     await page.goto("/dashboard/departments");
-
     await page.getByRole("button", { name: "New department" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.department_1.name);
     await page.getByRole("textbox", { name: "Description" }).click();
     await page
       .getByRole("textbox", { name: "Description" })
-      .fill("test_description");
-    await page.getByLabel("Branch").selectOption({ label: "test_branch" });
+      .fill(data.department_1.description);
+    await page
+      .getByLabel("Branch")
+      .selectOption({ label: data.department_1.branch });
     await page.getByRole("button", { name: "Create department" }).click();
+    // Assertion of CREATE operation
     await expect(
-      page.getByRole("cell", { name: "test_department" }),
+      page.getByRole("cell", { name: data.department_1.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "test_description" }),
+      page.getByRole("cell", { name: data.department_1.description }),
     ).toBeVisible();
 
+    // Update the department detail
     await page.getByRole("button", { name: "Edit" }).first().click();
     await page.getByRole("textbox", { name: "Name *" }).click();
     await page
       .getByRole("textbox", { name: "Name *" })
-      .fill("updated_department_name");
+      .fill(data.department_2.name);
     await page.getByRole("textbox", { name: "Description" }).click();
     await page
       .getByRole("textbox", { name: "Description" })
-      .fill("updated_description");
+      .fill(data.department_2.description);
     await page.getByRole("button", { name: "Save changes" }).click();
-
+    //
+    // Assertion of UPDATE operation
     await expect(
-      page.getByRole("cell", { name: "updated_department_name" }),
+      page.getByRole("cell", { name: data.department_2.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "updated_description" }),
+      page.getByRole("cell", { name: data.department_2.description }),
     ).toBeVisible();
+    //
+    // Cleanup: Delete department then branch
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
 
@@ -370,100 +407,138 @@ test.describe("Organization module", async () => {
   test("[ORG_07] Verify that the user can delete department.", async ({
     page,
   }) => {
+    // Create a branch
     await page.goto("/dashboard/branches");
-
     await page.getByRole("button", { name: "New branch" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code *" }).click();
-    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page
+      .getByRole("textbox", { name: "Code *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "City" }).click();
-    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "City" }).fill(data.branch_1.city);
     await page.getByRole("textbox", { name: "Country" }).click();
-    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page
+      .getByRole("textbox", { name: "Country" })
+      .fill(data.branch_1.country);
     await page.getByRole("textbox", { name: "Address" }).click();
-    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page
+      .getByRole("textbox", { name: "Address" })
+      .fill(data.branch_1.address);
     await page.getByRole("textbox", { name: "Phone" }).click();
-    await page.getByRole("textbox", { name: "Phone" }).fill("9888888888");
+    await page
+      .getByRole("textbox", { name: "Phone" })
+      .fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
 
+    // Create a department
     await page.goto("/dashboard/departments");
-
     await page.getByRole("button", { name: "New department" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.department_1.name);
     await page.getByRole("textbox", { name: "Description" }).click();
     await page
       .getByRole("textbox", { name: "Description" })
-      .fill("test_description");
-    await page.getByLabel("Branch").selectOption({ label: "test_branch" });
+      .fill(data.department_1.description);
+    await page
+      .getByLabel("Branch")
+      .selectOption({ label: data.department_1.branch });
     await page.getByRole("button", { name: "Create department" }).click();
+    // Assertion of department CREATE operation
     await expect(
-      page.getByRole("cell", { name: "test_department" }),
+      page.getByRole("cell", { name: data.department_1.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "test_description" }),
+      page.getByRole("cell", { name: data.department_1.description }),
     ).toBeVisible();
-    await expect(page.getByRole("cell", { name: "test_branch" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: data.branch_1.name }),
+    ).toBeVisible();
 
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
     await expect(
-      page.getByText("test_department moved to trash"),
+      page.getByText(`${data.department_1.name} moved to trash`),
     ).toBeVisible();
-
+    // Cleanup: remove branch
     await page.goto("/dashboard/branches");
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  test("[ORG_08] Verify that the user can [search] department.", async ({
+  test.only("[ORG_08] Verify that the user can [search] department.", async ({
     page,
   }) => {
+    // Create a branch
     await page.goto("/dashboard/branches");
-
     await page.getByRole("button", { name: "New branch" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_branch");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code *" }).click();
-    await page.getByRole("textbox", { name: "Code *" }).fill("test_code");
+    await page
+      .getByRole("textbox", { name: "Code *" })
+      .fill(data.branch_1.code);
     await page.getByRole("textbox", { name: "City" }).click();
-    await page.getByRole("textbox", { name: "City" }).fill("test_city");
+    await page.getByRole("textbox", { name: "City" }).fill(data.branch_1.city);
     await page.getByRole("textbox", { name: "Country" }).click();
-    await page.getByRole("textbox", { name: "Country" }).fill("test_country");
+    await page
+      .getByRole("textbox", { name: "Country" })
+      .fill(data.branch_1.country);
     await page.getByRole("textbox", { name: "Address" }).click();
-    await page.getByRole("textbox", { name: "Address" }).fill("test_address");
+    await page
+      .getByRole("textbox", { name: "Address" })
+      .fill(data.branch_1.address);
     await page.getByRole("textbox", { name: "Phone" }).click();
-    await page.getByRole("textbox", { name: "Phone" }).fill("9888888888");
+    await page
+      .getByRole("textbox", { name: "Phone" })
+      .fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
 
+    // Create a department
     await page.goto("/dashboard/departments");
-
     await page.getByRole("button", { name: "New department" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("test_department");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.department_1.name);
     await page.getByRole("textbox", { name: "Description" }).click();
     await page
       .getByRole("textbox", { name: "Description" })
-      .fill("test_description");
-    await page.getByLabel("Branch").selectOption({ label: "test_branch" });
+      .fill(data.department_1.description);
+    await page
+      .getByLabel("Branch")
+      .selectOption({ label: data.department_1.branch });
     await page.getByRole("button", { name: "Create department" }).click();
+    // Assertion of department CREATE operation
     await expect(
-      page.getByRole("cell", { name: "test_department" }),
+      page.getByRole("cell", { name: data.department_1.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "test_description" }),
+      page.getByRole("cell", { name: data.department_1.description }),
     ).toBeVisible();
-    await expect(page.getByRole("cell", { name: "test_branch" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: data.branch_1.name }),
+    ).toBeVisible();
 
+    // Test step
     await page.getByRole("textbox", { name: "Search by name..." }).click();
     await page
       .getByRole("textbox", { name: "Search by name..." })
-      .fill("test_department");
+      .fill(data.department_1.name);
     await expect(
-      page.getByRole("cell", { name: "test_department" }),
+      page.getByRole("cell", { name: data.department_1.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "test_description" }),
+      page.getByRole("cell", { name: data.department_1.description }),
     ).toBeVisible();
-    await expect(page.getByRole("cell", { name: "test_branch" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", { name: data.branch_1.name }),
+    ).toBeVisible();
 
+    // Cleanup: remove department then branch
     await page.getByRole("textbox", { name: "Search by name..." }).click();
     await page.getByRole("textbox", { name: "Search by name..." }).fill("");
     await page.getByRole("button", { name: "Move to trash" }).first().click();
