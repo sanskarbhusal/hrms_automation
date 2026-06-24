@@ -70,7 +70,7 @@ test.describe("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  test.only("[ORG_02] Verify that user can edit branch details.", async ({
+  test("[ORG_02] Verify that user can edit branch details.", async ({
     page,
   }) => {
     await page.goto("/dashboard/branches");
@@ -151,44 +151,52 @@ test.describe("Organization module", async () => {
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
 
-  test("[ORG_03] Verify that user can delete branch.", async ({ page }) => {
+  test.only("[ORG_03] Verify that user can delete branch.", async ({
+    page,
+  }) => {
     await page.getByRole("button", { name: "Organisation" }).click();
     await page.getByRole("link", { name: "Branches" }).click();
     await page.getByRole("button", { name: "New branch" }).click();
 
     await page.getByRole("textbox", { name: "Name *" }).click();
-    await page.getByRole("textbox", { name: "Name *" }).fill("deleting_branch");
+    await page
+      .getByRole("textbox", { name: "Name *" })
+      .fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code *" }).click();
-    await page.getByRole("textbox", { name: "Code *" }).fill("deleting_code");
+    await page
+      .getByRole("textbox", { name: "Code *" })
+      .fill(data.branch_1.code);
     await page.getByRole("textbox", { name: "City" }).click();
-    await page.getByRole("textbox", { name: "City" }).fill("d");
-    await page.getByRole("textbox", { name: "City" }).fill("deleting_city");
+    await page.getByRole("textbox", { name: "City" }).fill(data.branch_1.city);
     await page.getByRole("textbox", { name: "Country" }).click();
-    await page.getByRole("textbox", { name: "Country" }).fill("d");
     await page
       .getByRole("textbox", { name: "Country" })
-      .fill("deleting_country");
+      .fill(data.branch_1.country);
     await page.getByRole("textbox", { name: "Address" }).click();
     await page
       .getByRole("textbox", { name: "Address" })
-      .fill("deleting_address");
+      .fill(data.branch_1.address);
     await page.getByRole("textbox", { name: "Phone" }).click();
-    await page.getByRole("textbox", { name: "Phone" }).fill("988888888888");
+    await page
+      .getByRole("textbox", { name: "Phone" })
+      .fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
 
+    // Assertion
     await expect(
-      page.getByRole("cell", { name: "deleting_branch" }),
+      page.getByRole("cell", { name: data.branch_1.name }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "deleting_code" }),
+      page.getByRole("cell", { name: data.branch_1.code }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "deleting_city" }),
+      page.getByRole("cell", { name: data.branch_1.city }),
     ).toBeVisible();
     await expect(
-      page.getByRole("cell", { name: "deleting_country" }),
+      page.getByRole("cell", { name: data.branch_1.country }),
     ).toBeVisible();
 
+    // Cleanup: Delte the created branch
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
