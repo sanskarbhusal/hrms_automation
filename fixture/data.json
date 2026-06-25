@@ -34,11 +34,11 @@
   "designation_1": {
     "name": "test_designation_1",
     "description": "Designation 1 description.",
-    "department": "test_branch_1 — test_department_1"
+    "department": "test_department_1 — test_branch_1"
   },
   "designation_2": {
     "name": "test_designation_2",
     "description": "Designation 2 description",
-    "department": "test_branch_2 — test_department_2"
+    "department": "test_department_2 — test_branch_2"
   }
 }
