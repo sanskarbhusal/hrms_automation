@@ -6,39 +6,39 @@
     }
   },
   "branch_1": {
-    "name": "test_branch_1",
-    "code": "test_code_1",
-    "city": "test_city_1",
-    "country": "test_country_1",
-    "address": "test_address_1",
-    "phone": "9888888888"
+    "name": "test branch 1",
+    "code": "test code 1",
+    "city": "test city 1",
+    "country": "test country 1",
+    "address": "test address 1",
+    "phone": "9876543210"
   },
   "branch_2": {
-    "name": "test_branch_2",
-    "code": "test_code_2",
-    "city": "test_city_2",
-    "country": "test_country_2",
-    "address": "test_address_2",
-    "phone": "97777777777"
+    "name": "test branch 2",
+    "code": "test code 2",
+    "city": "test city 2",
+    "country": "test country 2",
+    "address": "test address 2",
+    "phone": "9876543210"
   },
   "department_1": {
-    "name": "test_department_1",
+    "name": "test department 1",
     "description": "test department 1 description",
-    "branch": "test_branch_1"
+    "branch": "test branch 1"
   },
   "department_2": {
-    "name": "test_department_2",
+    "name": "test department 2",
     "description": "test department 2 description",
-    "branch": "test_branch_2"
+    "branch": "test branch 2"
   },
   "designation_1": {
-    "name": "test_designation_1",
-    "description": "Designation 1 description.",
-    "department": "test_department_1 — test_branch_1"
+    "name": "test designation 1",
+    "description": "Designation 1 description",
+    "department": "test department 1 — test branch 1"
   },
   "designation_2": {
-    "name": "test_designation_2",
+    "name": "test designation 2",
     "description": "Designation 2 description",
-    "department": "test_department_2 — test_branch_2"
+    "department": "test department 2 — test branch 2"
   }
 }
