@@ -28,6 +28,9 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: "http://localhost:5173",
+    extraHTTPHeaders: {
+      accept: "application/json, text/plain, */*"
+    },
 
     // launchOptions: {
     //   slowMo: 500, // Introduces a 1000ms (1 second) delay between actions
@@ -39,6 +42,7 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
