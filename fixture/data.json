@@ -1,8 +1,16 @@
 {
   "role": {
+    "super_admin": {
+      "email": "superadmin@hrm.test",
+      "password": "Super@1234"
+    },
     "admin": {
       "email": "admin@demo.test",
       "password": "Admin@123"
+    },
+    "employee": {
+      "email": "sanskarbhusal123@gmail.com",
+      "password": "Test@123"
     }
   },
   "branch_1": {
@@ -19,7 +27,7 @@
     "city": "test city 2",
     "country": "test country 2",
     "address": "test address 2",
-    "phone": "9876543210"
+    "phone": "9876543211"
   },
   "department_1": {
     "name": "test department 1",
