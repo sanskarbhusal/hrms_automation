@@ -23,9 +23,7 @@ test.describe("Organization module", async () => {
 
   test("[ORG_01] Verify that user can user can create new branch.", async () => {
     // Create a branch
-    await page.goto("/dashboard")
-    await page.getByRole("button", { name: "Organisation" }).click();
-    await page.getByRole("link", { name: "Branches" }).click();
+    await page.goto("/dashboard/branches")
     await page.getByRole("button", { name: "New branch" }).click();
     await page.getByRole("textbox", { name: "Name *" }).fill(data.branch_1.name);
     await page.getByRole("textbox", { name: "Code " }).click();
