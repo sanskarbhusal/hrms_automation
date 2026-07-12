@@ -91,7 +91,10 @@ test.describe("Employees module", async () => {
     await expect(page.getByText(`${data.employee_1.first_name} ${data.employee_1.last_name} moved to trash`)).toBeVisible();
   });
 
-  test("[EMP_02] Verify that the user can search employee with name, code and email.", async () => { });
+  test("[EMP_02] Verify that the user can search employee with name, code and email.", async () => {
+
+
+  });
   test("[EMP_03] Verify that filter [statuses], [branches], [departments] and [designations] works.", async () => { });
   test("[EMP_04] Verify that the user can edit employee details.", async () => { });
   test("[EMP_05] Verify that the user can delete employee.", async () => { });
