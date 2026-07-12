@@ -53,10 +53,14 @@
     "first_name":"Andrey",
     "last_name":"Lushnikov",
     "company_email":"test.andrey.lushnikov@yopmail.com",
-    "branch" :"test branch 1",
-    "department":"test department 1",
-    "designation":"test designation 1",
     "biometric_device_pin":"001",
+    "salary":"1000"
+  },
+  "employee_2":{
+    "first_name":"Pavel",
+    "last_name":"Feldman",
+    "company_email":"test.pavel.feldman@yopmail.com",
+    "biometric_device_pin":"002",
     "salary":"1000"
   }
 }
