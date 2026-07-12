@@ -6,8 +6,6 @@ test.describe("Organization module", async () => {
 
   test.describe.configure({ mode: "serial" });
 
-  const adminStorageFile = path.join(__dirname, "../../playwright/.auth/admin-storage-state.json")
-
   let page: Page
 
   test.beforeAll(async ({ browser }) => {
@@ -19,6 +17,7 @@ test.describe("Organization module", async () => {
     await page.waitForTimeout(500);
   });
 
+  const adminStorageFile = path.join(__dirname, "../../playwright/.auth/admin-storage-state.json")
   test.use({ storageState: adminStorageFile });
 
   test("[ORG_01] Verify that user can user can create new branch.", async () => {
@@ -156,18 +155,18 @@ test.describe("Organization module", async () => {
     await page.getByRole("textbox", { name: "Phone" }).click();
     await page.getByRole("textbox", { name: "Phone" }).fill(data.branch_1.phone);
     await page.getByRole("button", { name: "Create branch" }).click();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).click();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).fill(data.branch_1.name);
+    await page.getByRole("textbox", { name: "Search branches" }).click();
+    await page.getByRole("textbox", { name: "Search branches" }).fill(data.branch_1.name);
     await expect(page.getByRole("cell", { name: data.branch_1.name })).toBeVisible();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).click();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).fill(data.branch_1.code);
+    await page.getByRole("textbox", { name: "Search branches" }).click();
+    await page.getByRole("textbox", { name: "Search branches" }).fill(data.branch_1.code);
     await expect(page.getByRole("cell", { name: data.branch_1.code })).toBeVisible();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).click();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).fill(data.branch_1.city);
+    await page.getByRole("textbox", { name: "Search branches" }).click();
+    await page.getByRole("textbox", { name: "Search branches" }).fill(data.branch_1.city);
     await expect(page.getByRole("cell", { name: data.branch_1.city })).toBeVisible();
     // Cleanup
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).click();
-    await page.getByRole("textbox", { name: "Search by name, code or city" }).fill("");
+    await page.getByRole("textbox", { name: "Search branches" }).click();
+    await page.getByRole("textbox", { name: "Search branches" }).fill("");
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
   });
@@ -327,15 +326,15 @@ test.describe("Organization module", async () => {
     await expect(page.getByRole("cell", { name: data.branch_1.name, exact: true })).toBeVisible();
 
     // Test step
-    await page.getByRole("textbox", { name: "Search by name..." }).click();
-    await page.getByRole("textbox", { name: "Search by name..." }).fill(data.department_1.name);
+    await page.getByRole("textbox", { name: "Search departments" }).click();
+    await page.getByRole("textbox", { name: "Search departments" }).fill(data.department_1.name);
     await expect(page.getByRole("cell", { name: data.department_1.name, exact: true })).toBeVisible();
     await expect(page.getByRole("cell", { name: data.department_1.description })).toBeVisible();
     await expect(page.getByRole("cell", { name: data.branch_1.name, exact: true })).toBeVisible();
 
     // Cleanup: remove department then branch
-    await page.getByRole("textbox", { name: "Search by name..." }).click();
-    await page.getByRole("textbox", { name: "Search by name..." }).fill("");
+    await page.getByRole("textbox", { name: "Search departments" }).click();
+    await page.getByRole("textbox", { name: "Search departments" }).fill("");
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();
 
@@ -656,15 +655,15 @@ test.describe("Organization module", async () => {
     await page.getByRole("button", { name: "Create designation" }).click();
 
     // Perform test
-    await page.getByRole("textbox", { name: "Search by name..." }).click();
-    await page.getByRole("textbox", { name: "Search by name..." }).fill(data.designation_1.name);
+    await page.getByRole("textbox", { name: "Search" }).click();
+    await page.getByRole("textbox", { name: "Search" }).fill(data.designation_1.name);
     // Assertion on search operation of designation
     await expect(page.getByRole("cell", { name: data.designation_1.name, exact: true })).toBeVisible();
     await expect(page.getByRole("cell", { name: data.department_1.name, exact: true })).toBeVisible();
 
     // Clean up
-    await page.getByRole("textbox", { name: "Search by name..." }).click();
-    await page.getByRole("textbox", { name: "Search by name..." }).fill("");
+    await page.getByRole("textbox", { name: "Search" }).click();
+    await page.getByRole("textbox", { name: "Search" }).fill("");
 
     await page.getByRole("button", { name: "Move to trash" }).first().click();
     await page.getByRole("button", { name: "Move to trash" }).click();

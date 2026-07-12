@@ -31,6 +31,7 @@ export default defineConfig({
     extraHTTPHeaders: {
       accept: "application/json, text/plain, */*"
     },
+    viewport: { width: 1920, height: 768 },
 
     // launchOptions: {
     //   slowMo: 500, // Introduces a 1000ms (1 second) delay between actions

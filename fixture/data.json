@@ -5,7 +5,7 @@
       "password": "Super@1234"
     },
     "admin": {
-      "email": "admin@yopmail.com",
+      "email": "nandi.solutions@yopmail.com",
       "password": "Admin@123"
     },
     "employee": {
@@ -48,5 +48,15 @@
     "name": "test designation 2",
     "description": "Designation 2 description",
     "department": "test department 2 — test branch 2"
+  },
+  "employee_1":{
+    "first_name":"Andrey",
+    "last_name":"Lushnikov",
+    "company_email":"test.andrey.lushnikov@yopmail.com",
+    "branch" :"test branch 1",
+    "department":"test department 1",
+    "designation":"test designation 1",
+    "biometric_device_pin":"001",
+    "salary":"1000"
   }
 }
